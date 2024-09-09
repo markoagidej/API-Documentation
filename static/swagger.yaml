@@ -1,0 +1,46 @@
+swagger: '2.0'
+info:
+  title: "Factory Management System API"
+  description: "This is an API to manage a Factory Management System API application"
+  version: "1.0.0"
+host: "127.0.0.1:5000"
+schemes:
+  - "http"
+consumes:
+  - "application.json"
+produces:
+  - "application.json"
+paths: {}
+definitions: 
+  Customer:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: "Customer name"
+      email:
+        type: "string"
+        description: "Customer email"
+      phone:
+        type: "string"
+        description: "Customer phone"
+    required:
+      - "name"
+      - "email"
+      - "phone"
+  Employee:
+    type: "object"
+    properties:
+    required:
+  Order:
+    type: "object"
+    properties:
+    required:
+  Product:
+    type: "object"
+    properties:
+    required:
+  Production:
+    type: "object"
+    properties:
+    required:
