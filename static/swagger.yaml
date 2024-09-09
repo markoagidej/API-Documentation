@@ -16,7 +16,7 @@ paths:
       tags:
         - customers
       summary: "Create Customer"
-      description: "Enpoint to create a new Customer"
+      description: "Endpoint to create a new Customer"
       parameters:
         - in: "body"
           name: "body"
@@ -29,11 +29,29 @@ paths:
           description: "Customer created successfully"
           schema:
             $ref: "#/definitions/Customer"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Error"
+          examples:
+            application/json:
+              value:
+                status: "error"
+                message: "Invalid Data"
+        500:
+          description: "Error with server"
+          schema:
+            $ref: "#/definitions/Error"
+          examples:
+            application/json:
+              value:
+                status: "error"
+                message: "Something unexpected happened with the server. Try again later or contact an admin"
     get:
       tags:
         - customers
       summary: "Get all Customers"
-      description: "Enpoint to view all Customers"
+      description: "Endpoint to view all Customers"
       responses:
         200:
           description: "Successfully retreived all customers"
@@ -41,6 +59,33 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Customer"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Error"
+          examples:
+            application/json:
+              value:
+                status: "error"
+                message: "You have not bee authorized"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/Error"
+          examples:
+            application/json:
+              value:
+                status: "error"
+                message: "You do not have permission to perform this action"
+        500:
+          description: "Error with server"
+          schema:
+            $ref: "#/definitions/Error"
+          examples:
+            application/json:
+              value:
+                status: "error"
+                message: "Something unexpected happened with the server. Try again later or contact an admin"
       security:
         - bearerAuth: []
   /employees:
@@ -48,7 +93,7 @@ paths:
       tags:
         - employees
       summary: "Create Employee"
-      description: "Enpoint to create a new Employee"
+      description: "Endpoint to create a new Employee"
       parameters:
         - in: "body"
           name: "body"
@@ -65,7 +110,7 @@ paths:
       tags:
         - employees
       summary: "Get all Employee"
-      description: "Enpoint to view all Employee"
+      description: "Endpoint to view all Employee"
       responses:
         200:
           description: "Successfully retreived all employees"
@@ -78,7 +123,7 @@ paths:
       tags:
         - orders
       summary: "Create Order"
-      description: "Enpoint to create a new Order"
+      description: "Endpoint to create a new Order"
       parameters:
         - in: "body"
           name: "body"
@@ -95,7 +140,7 @@ paths:
       tags:
         - orders
       summary: "Get all Order"
-      description: "Enpoint to view all Order"
+      description: "Endpoint to view all Order"
       responses:
         200:
           description: "Successfully retreived all orders"
@@ -108,7 +153,7 @@ paths:
       tags:
         - orders
       summary: "Get Orders in pages"
-      description: "Enpoint to view all Orders with pagination"
+      description: "Endpoint to view all Orders with pagination"
       parameters:
         - in: "path"
           name: "page"
@@ -134,7 +179,7 @@ paths:
       tags:
         - products
       summary: "Create Product"
-      description: "Enpoint to create a new Product"
+      description: "Endpoint to create a new Product"
       parameters:
         - in: "body"
           name: "body"
@@ -151,7 +196,7 @@ paths:
       tags:
         - products
       summary: "Get all Product"
-      description: "Enpoint to view all Product"
+      description: "Endpoint to view all Product"
       responses:
         200:
           description: "Successfully retreived all products"
@@ -164,7 +209,7 @@ paths:
       tags:
         - products
       summary: "Get Products in pages"
-      description: "Enpoint to view all Products with pagination"
+      description: "Endpoint to view all Products with pagination"
       parameters:
         - in: "path"
           name: "page"
@@ -190,7 +235,7 @@ paths:
       tags:
         - productions
       summary: "Create Production"
-      description: "Enpoint to create a new Production"
+      description: "Endpoint to create a new Production"
       parameters:
         - in: "body"
           name: "body"
@@ -207,7 +252,7 @@ paths:
       tags:
         - productions
       summary: "Get all Productions"
-      description: "Enpoint to view all Productions"
+      description: "Endpoint to view all Productions"
       responses:
         200:
           description: "Successfully retreived all productions"
@@ -400,3 +445,15 @@ definitions:
       - "product_id"
       - "quantity_produced"
       - "date_produced"
+  Error:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        description: "Status of the error"
+      message:
+        type: "string"
+        description: "Description of the error"
+    required:
+      - "status"
+      - "message"
